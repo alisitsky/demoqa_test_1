@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
@@ -20,11 +21,13 @@ public class PracticeFormTest {
         String  userFirstName = "Ололош",
                 userLastName = "Трололош",
                 userEmail = "ololosh@trololosh.com",
+                userGender = "Other",
                 userPhoneNumber = "0123456789",
                 userBirthYear = "1917",
                 userBirthMonth = "October",
                 userBirthDate = "25",
                 userSubject = "History",
+                userHobby = "Music",
                 pathToPicture = "com.demoqa/FillFormsAndSubmitPicture.jpg",
                 pictureFileName = pathToPicture.substring(pathToPicture.lastIndexOf("/") + 1),
                 userAddress = "Moscow",
@@ -38,24 +41,22 @@ public class PracticeFormTest {
         $("#firstName").setValue(userFirstName);
         $("#lastName").setValue(userLastName);
         $("#userEmail").setValue(userEmail);
-        $$("label").findBy(text("Other")).click();
+        $("#genterWrapper").$(byText(userGender)).click();
         $("#userNumber").setValue(userPhoneNumber);
         $(".react-datepicker-wrapper").click();
         $(".react-datepicker__year-select").click();
         $(".react-datepicker__year-select").selectOption(userBirthYear);
-        $(".react-datepicker__month-select").click();   //  <----- здесь страница мигает черным хммм
+        $(".react-datepicker__month-select").click();
         $(".react-datepicker__month-select").selectOption(userBirthMonth);
         $$("div .react-datepicker__day").findBy(text(userBirthDate)).click();
-        $(".subjects-auto-complete__input input").setValue(userSubject);
-        $$(".subjects-auto-complete__option").findBy(text(userSubject)).click();
-        $(".subjects-auto-complete__multi-value__label").shouldHave(text(userSubject));
-        $$("label").findBy(text("Music")).click();
+        $("#subjectsInput").setValue(userSubject).pressEnter();
+        $("#hobbiesWrapper").$(byText(userHobby)).click();
         $("#uploadPicture").uploadFromClasspath(pathToPicture);
         $("#currentAddress").setValue(userAddress);
         $("#state").click();
-        $$("div").findBy(text(userState)).click();
+        $("#stateCity-wrapper").$(byText(userState)).click();
         $("#city").click();
-        $("#react-select-4-option-2").shouldHave(text(userCity)).click();
+        $("#stateCity-wrapper").$(byText(userCity)).click();
         $("button#submit").scrollTo().click();
 
         $(".modal-content").
@@ -67,7 +68,7 @@ public class PracticeFormTest {
         $$("div.table-responsive table tbody tr").findBy(text("Student Email")).
                 shouldHave(text(userEmail));
         $$("div.table-responsive table tbody tr").findBy(text("Gender")).
-                shouldHave(text("Other"));
+                shouldHave(text(userGender));
         $$("div.table-responsive table tbody tr").findBy(text("Mobile")).
                 shouldHave(text(userPhoneNumber));
         $$("div.table-responsive table tbody tr").findBy(text("Date of Birth")).
@@ -75,7 +76,7 @@ public class PracticeFormTest {
         $$("div.table-responsive table tbody tr").findBy(text("Subjects")).
                 shouldHave(text(userSubject));
         $$("div.table-responsive table tbody tr").findBy(text("Hobbies")).
-                shouldHave(text("Music"));
+                shouldHave(text(userHobby));
         $$("div.table-responsive table tbody tr").findBy(text("Picture")).
                 shouldHave(text(pictureFileName));
         $$("div.table-responsive table tbody tr").findBy(text("Address")).
