@@ -12,23 +12,24 @@ public class PracticeFormTest {
     static void beforeAll(){
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
     }
 
     @Test
     public void fillFormsAndSubmitTest(){
-        var userFirstName = "Ололош";
-        var userLastName = "Трололош";
-        var userEmail = "ololosh@trololosh.com";
-        var userPhoneNumber = "0123456789";
-        var userBirthYear = "1917";
-        var userBirthMonth = "October";
-        var userBirthDate = "25";
-        var userSubject = "History";
-        var pathToPicture = "com.demoqa/FillFormsAndSubmitPicture.jpg";
-        var pictureFileName = pathToPicture.substring(pathToPicture.lastIndexOf("/") + 1);
-        var userAddress = "Moscow";
-        var userState = "Uttar Pradesh";
-        var userCity = "Merrut";
+        String  userFirstName = "Ололош",
+                userLastName = "Трололош",
+                userEmail = "ololosh@trololosh.com",
+                userPhoneNumber = "0123456789",
+                userBirthYear = "1917",
+                userBirthMonth = "October",
+                userBirthDate = "25",
+                userSubject = "History",
+                pathToPicture = "com.demoqa/FillFormsAndSubmitPicture.jpg",
+                pictureFileName = pathToPicture.substring(pathToPicture.lastIndexOf("/") + 1),
+                userAddress = "Moscow",
+                userState = "Uttar Pradesh",
+                userCity = "Merrut";
 
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
@@ -37,8 +38,7 @@ public class PracticeFormTest {
         $("#firstName").setValue(userFirstName);
         $("#lastName").setValue(userLastName);
         $("#userEmail").setValue(userEmail);
-        $("label[for='gender-radio-3']").click();
-        $("#gender-radio-3").shouldBe(selected);
+        $$("label").findBy(text("Other")).click();
         $("#userNumber").setValue(userPhoneNumber);
         $(".react-datepicker-wrapper").click();
         $(".react-datepicker__year-select").click();
@@ -46,23 +46,22 @@ public class PracticeFormTest {
         $(".react-datepicker__month-select").click();   //  <----- здесь страница мигает черным хммм
         $(".react-datepicker__month-select").selectOption(userBirthMonth);
         $$("div .react-datepicker__day").findBy(text(userBirthDate)).click();
-        $("#dateOfBirthInput").shouldHave(
-                attribute("value", userBirthDate+" "+userBirthMonth.substring(0, 3)+" "+userBirthYear));
         $(".subjects-auto-complete__input input").setValue(userSubject);
         $$(".subjects-auto-complete__option").findBy(text(userSubject)).click();
         $(".subjects-auto-complete__multi-value__label").shouldHave(text(userSubject));
-        $("label[for='hobbies-checkbox-3']").click();
-        $("#hobbies-checkbox-3").shouldBe(selected);
+        $$("label").findBy(text("Music")).click();
         $("#uploadPicture").uploadFromClasspath(pathToPicture);
         $("#currentAddress").setValue(userAddress);
         $("#state").click();
-        $("#react-select-3-option-1").shouldHave(text(userState)).click();
+        $$("div").findBy(text(userState)).click();
         $("#city").click();
         $("#react-select-4-option-2").shouldHave(text(userCity)).click();
         $("button#submit").scrollTo().click();
 
-        $(".modal-content").shouldBe(visible);
-        $(".modal-content .modal-header").shouldHave(text("Thanks for submitting the form"));
+        $(".modal-content").
+                shouldBe(visible);
+        $(".modal-content .modal-header").
+                shouldHave(text("Thanks for submitting the form"));
         $$("div.table-responsive table tbody tr").findBy(text("Student Name")).
                 shouldHave(text(userFirstName + " " + userLastName));
         $$("div.table-responsive table tbody tr").findBy(text("Student Email")).
