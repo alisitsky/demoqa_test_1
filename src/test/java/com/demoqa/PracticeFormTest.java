@@ -7,14 +7,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormTest {
-
-    @BeforeAll
-    static void beforeAll(){
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-    }
+public class PracticeFormTest extends TestBase{
 
     @Test
     public void fillFormsAndSubmitTest(){
@@ -58,6 +51,7 @@ public class PracticeFormTest {
         $("#city").click();
         $("#stateCity-wrapper").$(byText(userCity)).click();
         $("button#submit").scrollTo().click();
+
 
         $(".modal-content").
                 shouldBe(visible);
