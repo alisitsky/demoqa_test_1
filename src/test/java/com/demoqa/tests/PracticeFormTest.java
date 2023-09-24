@@ -1,14 +1,14 @@
 package com.demoqa.tests;
 
+import com.demoqa.page.RegistrationPage;
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest extends TestBase{
 
+    RegistrationPage registrationPage = new RegistrationPage();
+
     @Test
-    public void fillFormsAndSubmitTest(){
+    public void fillFormsAndSubmitWithPageObjectsTest(){
         String  userFirstName = "Ололош",
                 userLastName = "Трололош",
                 userEmail = "ololosh@trololosh.com",
@@ -25,55 +25,31 @@ public class PracticeFormTest extends TestBase{
                 userState = "Uttar Pradesh",
                 userCity = "Merrut";
 
-        open("/automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        registrationPage.openPage()
+                        .setFirstName(userFirstName)
+                        .setLastName(userLastName)
+                        .setUserEmail(userEmail)
+                        .setGender(userGender)
+                        .setPhoneNumber(userPhoneNumber)
+                        .setBirthDate(userBirthDate, userBirthMonth, userBirthYear)
+                        .setSubject(userSubject)
+                        .setHobbie(userHobby)
+                        .uploadPicture(pathToPicture)
+                        .setCurrentAddress(userAddress)
+                        .setStateAndCity(userState,userCity)
+                        .SubmitButtonClick()
 
-        $("#firstName").setValue(userFirstName);
-        $("#lastName").setValue(userLastName);
-        $("#userEmail").setValue(userEmail);
-        $("#genterWrapper").$(byText(userGender)).click();
-        $("#userNumber").setValue(userPhoneNumber);
-        $(".react-datepicker-wrapper").click();
-        $(".react-datepicker__year-select").click();
-        $(".react-datepicker__year-select").selectOption(userBirthYear);
-        $(".react-datepicker__month-select").click();
-        $(".react-datepicker__month-select").selectOption(userBirthMonth);
-        $$("div .react-datepicker__day").findBy(text(userBirthDate)).click();
-        $("#subjectsInput").setValue(userSubject).pressEnter();
-        $("#hobbiesWrapper").$(byText(userHobby)).click();
-        $("#uploadPicture").uploadFromClasspath(pathToPicture);
-        $("#currentAddress").setValue(userAddress);
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText(userState)).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText(userCity)).click();
-        $("button#submit").scrollTo().click();
-
-
-        $(".modal-content").
-                shouldBe(visible);
-        $(".modal-content .modal-header").
-                shouldHave(text("Thanks for submitting the form"));
-        $$("div.table-responsive table tbody tr").findBy(text("Student Name")).
-                shouldHave(text(userFirstName + " " + userLastName));
-        $$("div.table-responsive table tbody tr").findBy(text("Student Email")).
-                shouldHave(text(userEmail));
-        $$("div.table-responsive table tbody tr").findBy(text("Gender")).
-                shouldHave(text(userGender));
-        $$("div.table-responsive table tbody tr").findBy(text("Mobile")).
-                shouldHave(text(userPhoneNumber));
-        $$("div.table-responsive table tbody tr").findBy(text("Date of Birth")).
-                shouldHave(text(userBirthDate + " " + userBirthMonth + "," + userBirthYear));
-        $$("div.table-responsive table tbody tr").findBy(text("Subjects")).
-                shouldHave(text(userSubject));
-        $$("div.table-responsive table tbody tr").findBy(text("Hobbies")).
-                shouldHave(text(userHobby));
-        $$("div.table-responsive table tbody tr").findBy(text("Picture")).
-                shouldHave(text(pictureFileName));
-        $$("div.table-responsive table tbody tr").findBy(text("Address")).
-                shouldHave(text(userAddress));
-        $$("div.table-responsive table tbody tr").findBy(text("State and City")).
-                shouldHave(text(userState + " " + userCity));
+                        .checkModalContentVisible()
+                        .checkModalContentHasHeader("Thanks for submitting the form")
+                        .checkStudentNameValueVisible(userFirstName, userLastName)
+                        .checkStudentEmailValueVisible(userEmail)
+                        .checkGenderValueVisible(userGender)
+                        .checkMobileValueVisible(userPhoneNumber)
+                        .checkBirthDateValueVisible(userBirthDate, userBirthMonth, userBirthYear)
+                        .checkSubjectsValueVisible(userSubject)
+                        .checkHobbiesValueVisible(userHobby)
+                        .checkPictureValueVisible(pictureFileName)
+                        .checkAddressValueVisible(userAddress)
+                        .checkStateAndCityValueVisible(userState, userCity);
     }
 }
