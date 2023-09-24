@@ -42,9 +42,9 @@ public class PracticeFormWithPageObjectsTest extends TestBase{
                         .uploadPicture(pathToPicture)
                         .setCurrentAddress(userAddress)
                         .setStateAndCity(userState,userCity)
-                        .SubmitButtonClick();
+                        .SubmitButtonClick()
 
-        registrationPage.checkModalContentVisible()
+                        .checkModalContentVisible()
                         .checkModalContentHasHeader("Thanks for submitting the form")
                         .checkStudentNameValueVisible(userFirstName, userLastName)
                         .checkStudentEmailValueVisible(userEmail)

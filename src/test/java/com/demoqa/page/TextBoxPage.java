@@ -21,8 +21,6 @@ public class TextBoxPage {
                     currentAddressOutput = $("#output #currentAddress"),
                     permanentAddressOutput =$ ("#output #permanentAddress");
 
-
-
     public TextBoxPage openPage() {
         open("/text-box");
         return this;
