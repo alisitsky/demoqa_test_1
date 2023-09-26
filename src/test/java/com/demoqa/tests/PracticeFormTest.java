@@ -26,6 +26,7 @@ public class PracticeFormTest extends TestBase{
                 userCity = "Merrut";
 
         registrationPage.openPage()
+                        .removeBanners()
                         .setFirstName(userFirstName)
                         .setLastName(userLastName)
                         .setUserEmail(userEmail)
@@ -37,7 +38,7 @@ public class PracticeFormTest extends TestBase{
                         .uploadPicture(pathToPicture)
                         .setCurrentAddress(userAddress)
                         .setStateAndCity(userState,userCity)
-                        .SubmitButtonClick()
+                        .submitButtonClick()
 
                         .checkModalContentVisible()
                         .checkModalContentHasHeader("Thanks for submitting the form")

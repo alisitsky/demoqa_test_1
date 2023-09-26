@@ -17,7 +17,7 @@ public class RegistrationPage {
         userEmailInput = $("#userEmail"),
         modalContent = $(".modal-content"),
         modalHeader = $(".modal-content .modal-header"),
-        birhDateInput = $(".react-datepicker-wrapper"),
+        birthDateInput = $(".react-datepicker-wrapper"),
         genderRadio = $("#genterWrapper"),
         phoneNumberInput = $("#userNumber"),
         subjectInput = $("#subjectsInput"),
@@ -41,10 +41,16 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
+        return this;
+    }
+
+    public RegistrationPage removeBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
     }
+
+
 
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
@@ -62,7 +68,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setBirthDate(String day, String month, String year) {
-        birhDateInput.click();
+        birthDateInput.click();
         calendar.setDate(day, month, year);
         return this;
     }
@@ -105,7 +111,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage SubmitButtonClick(){
+    public RegistrationPage submitButtonClick(){
         submitButton.scrollTo().click();
         return this;
     }
