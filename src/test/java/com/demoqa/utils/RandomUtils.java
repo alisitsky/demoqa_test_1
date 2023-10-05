@@ -1,6 +1,7 @@
 package com.demoqa.utils;
 
 import com.demoqa.page.RegistrationPage;
+import com.demoqa.page.RegistrationPageData;
 import com.github.javafaker.Faker;
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -13,10 +14,26 @@ import java.util.Map;
 public class RandomUtils {
 
     static Faker faker = new Faker();
-    static RegistrationPage registrationPage = new RegistrationPage();
+    static RegistrationPageData registrationPageData = new RegistrationPageData();
 
-    public static String getRandomValueFromArray(String[] array) {
-        return array[faker.random().nextInt(array.length)];
+    public static String getRandomGender() {
+        return faker.options().option(RegistrationPageData.genders);
+    }
+
+    public static String getRandomSubject() {
+        return faker.options().option(RegistrationPageData.subjects);
+    }
+
+    public static String getRandomState() {
+        return faker.options().option(RegistrationPageData.states);
+    }
+
+    public static String getRandomHobbie() {
+        return faker.options().option(RegistrationPageData.hobbies);
+    }
+
+    public static String getRandomCity(String[] cities) {
+        return faker.options().option(cities);
     }
 
     public static String getRandomPhoneNumber() {
@@ -56,16 +73,16 @@ public class RandomUtils {
 
         for (int i = 1; i <= numberOfStates; i++) {
             String citiesArrayFieldName = "citiesForState" + i;
-            Field field = registrationPage.getClass().getDeclaredField(citiesArrayFieldName);
+            Field field = registrationPageData.getClass().getDeclaredField(citiesArrayFieldName);
             field.setAccessible(true);
-            String[] citiesArray = (String[]) field.get(registrationPage);
+            String[] citiesArray = (String[]) field.get(registrationPageData);
             stateAndCityMap.put(states[i-1], citiesArray);
         }
         return stateAndCityMap;
     }
 
     public static String getRandomCityForChosenState(String state) throws NoSuchFieldException, IllegalAccessException {
-        String[] cities = createStateAndCityMap(registrationPage.states).get(state);
-        return getRandomValueFromArray(cities);
+        String[] cities = createStateAndCityMap(registrationPageData.states).get(state);
+        return getRandomCity(cities);
     }
 }

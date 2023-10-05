@@ -3,9 +3,6 @@ package com.demoqa.tests;
 import com.demoqa.page.RegistrationPage;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static com.demoqa.utils.RandomUtils.*;
 
 public class PracticeFormTest extends TestBase{
@@ -19,15 +16,15 @@ public class PracticeFormTest extends TestBase{
         String  userFirstName = faker.name().firstName(),
                 userLastName = faker.name().lastName(),
                 userEmail = faker.internet().emailAddress(),
-                userGender = getRandomValueFromArray(registrationPage.genders),
+                userGender = getRandomGender(),
                 userPhoneNumber = getRandomPhoneNumber(),
                 userBirthDate = faker.date().birthday().toString(),
-                userSubject = getRandomValueFromArray(registrationPage.subjects),
-                userHobby = getRandomValueFromArray(registrationPage.hobbies),
+                userSubject = getRandomSubject(),
+                userHobby = getRandomHobbie(),
                 pathToPicture = "com.demoqa/FillFormsAndSubmitPicture.jpg",
                 pictureFileName = pathToPicture.substring(pathToPicture.lastIndexOf("/") + 1),
                 userAddress = faker.address().fullAddress(),
-                userState = getRandomValueFromArray(registrationPage.states),
+                userState = getRandomState(),
                 userCity = getRandomCityForChosenState(userState);
 
         registrationPage.openPage()

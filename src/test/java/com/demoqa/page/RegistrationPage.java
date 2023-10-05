@@ -38,16 +38,6 @@ public class RegistrationPage {
         addressLine = $$("div.table-responsive table tbody tr").findBy(text("Address")),
         stateAndCityLine = $$("div.table-responsive table tbody tr").findBy(text("State and City"));
 
-    public String[]
-            genders = {"Male", "Female", "Other"},
-            subjects = {"Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics" },
-            hobbies = {"Sports", "Reading", "Music"},
-            states = {"NCR", "Uttar Pradesh", "Haryana", "Rajasthan"},
-            citiesForState1 = {"Delhi", "Gurgaon", "Noida"},
-            citiesForState2 = {"Agra", "Lucknow", "Merrut"},
-            citiesForState3 = {"Karnal", "Panipat"},
-            citiesForState4 = {"Jaipur", "Jaiselmer"};
-
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         return this;
