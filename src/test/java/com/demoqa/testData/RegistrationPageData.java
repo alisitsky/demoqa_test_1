@@ -1,4 +1,4 @@
-package com.demoqa.page;
+package com.demoqa.testData;
 
 public class RegistrationPageData {
 

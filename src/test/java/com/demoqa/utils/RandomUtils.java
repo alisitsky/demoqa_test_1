@@ -1,7 +1,6 @@
 package com.demoqa.utils;
 
-import com.demoqa.page.RegistrationPage;
-import com.demoqa.page.RegistrationPageData;
+import com.demoqa.testData.RegistrationPageData;
 import com.github.javafaker.Faker;
 import java.lang.reflect.Field;
 import java.text.ParseException;
