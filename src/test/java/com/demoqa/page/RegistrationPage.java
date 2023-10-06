@@ -2,7 +2,6 @@ package com.demoqa.page;
 
 import com.codeborne.selenide.SelenideElement;
 import com.demoqa.page.components.CalendarComponent;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -49,8 +48,6 @@ public class RegistrationPage {
         executeJavaScript("$('footer').remove()");
         return this;
     }
-
-
 
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
